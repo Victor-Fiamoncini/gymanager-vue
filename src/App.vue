@@ -14,6 +14,7 @@ export default {
 @import '@/assets/scss/app.scss';
 
 #wrapper {
+	position: relative;
 	height: 100vh;
 	background: $primary;
 }

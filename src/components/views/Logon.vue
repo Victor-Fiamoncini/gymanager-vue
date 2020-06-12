@@ -1,5 +1,6 @@
 <template>
 	<div id="logon">
+		<NotificationList />
 		<form @submit.prevent="doLogonRequest">
 			<b-card class="shadow">
 				<h1 class="brand-title">
@@ -54,14 +55,23 @@
 </template>
 
 <script>
+import NotificationList from '@/components/layout/NotificationList'
+import { mapGetters } from 'vuex'
+
 export default {
 	name: 'Logon',
+	components: {
+		NotificationList,
+	},
 	data: () => ({
 		form: {
 			email: '',
 			password: '',
 		},
 	}),
+	computed: {
+		...mapGetters('session', ['errors', 'loading']),
+	},
 }
 </script>
 
