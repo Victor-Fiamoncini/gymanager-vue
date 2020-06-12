@@ -2,12 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Logon from '../views/Logon'
+import Register from '../views/Register'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
 	mode: 'history',
-	base: process.env.VUE_APP_BASE_URL,
 	routes: [
 		{
 			path: '/',
@@ -15,6 +15,15 @@ const router = new VueRouter({
 			component: Logon,
 			meta: {
 				title: 'Logon',
+				requiresAuth: false,
+			},
+		},
+		{
+			path: '/cadastro',
+			name: 'Register',
+			component: Register,
+			meta: {
+				title: 'Cadastro',
 				requiresAuth: false,
 			},
 		},
@@ -41,7 +50,7 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if (hasToken) {
-			return router.push({ name: 'Home' })
+			return router.push({ name: 'Dashboard' })
 		} else {
 			next()
 		}

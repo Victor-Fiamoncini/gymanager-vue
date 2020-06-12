@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './libs/fontawesome'
 import './libs/bootstrap'
 
 import App from './App.vue'

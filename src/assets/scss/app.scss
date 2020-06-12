@@ -1,0 +1,31 @@
+$primary: #78C2AD;
+$primary-dark: darken(#78C2AD, 10);
+
+* {
+	outline-color: $primary;
+}
+
+body {
+	height: 100%;
+	background: $primary;
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	&::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $primary;
+		&:hover {
+			background: $primary-dark;
+		}
+	}
+}
+
+.guest-link {
+	display: block;
+	margin: 16px 0 -20px;
+	font-size: 0.875rem;
+	transition: all .3s;
+	text-decoration: none;
+}
