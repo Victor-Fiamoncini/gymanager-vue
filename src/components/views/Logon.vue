@@ -1,25 +1,16 @@
 <template>
-	<div id="register">
-		<form @submit.prevent="doRegisterRequest">
-			<b-card>
+	<div id="logon">
+		<form @submit.prevent="doLogonRequest">
+			<b-card class="shadow">
 				<h1 class="brand-title">
 					<img
-						src="../assets/images/logo.png"
+						src="@/assets/images/logo.png"
 						alt="Gymananger Logo"
 						title="Gymanager"
 					/>
 					Gymanager
 				</h1>
 				<b-card-body>
-					<b-form-group>
-						<b-form-input
-							type="text"
-							trim
-							required
-							placeholder="Nome"
-							v-model="form.name"
-						/>
-					</b-form-group>
 					<b-form-group>
 						<b-form-input
 							type="email"
@@ -42,19 +33,19 @@
 						block
 						variant="primary"
 						:disabled="loading"
-						@click.prevent="doRegisterRequest"
+						@click.prevent="doLogonRequest"
 					>
 						<template v-if="loading">
 							<font-awesome-icon icon="spinner" class="fa-spin" />
-							Cadastrando...
+							Entrando...
 						</template>
 						<template v-else>
 							<font-awesome-icon icon="sign-in-alt" />
-							Cadastrar
+							Entrar
 						</template>
 					</b-button>
-					<router-link to="/" class="guest-link">
-						Já possui conta? Faça seu logon aqui
+					<router-link to="/cadastro" class="guest-link">
+						Ainda não possui uma conta? Cadastre-se aqui
 					</router-link>
 				</b-card-body>
 			</b-card>
@@ -63,8 +54,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
 export default {
 	name: 'Logon',
 	data: () => ({
@@ -73,22 +62,13 @@ export default {
 			password: '',
 		},
 	}),
-	computed: {
-		...mapGetters('session', ['loading']),
-	},
-	methods: {
-		...mapActions('session', ['actionRegister']),
-		async doRegisterRequest() {
-			await this.actionRegister(this.form)
-		},
-	},
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/app.scss';
 
-#register {
+#logon {
 	display: flex;
 	align-items: center;
 	justify-content: center;

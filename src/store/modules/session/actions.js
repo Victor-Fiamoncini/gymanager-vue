@@ -2,42 +2,40 @@ import router from '../../../router'
 import * as token from '../../../utils/token'
 
 import api from '../../../services/api'
-import Types from './types'
+import SessionTypes from './types'
 
 export async function actionRegister({ commit }, payload) {
-	commit(Types.SET_LOADING)
+	commit(SessionTypes.SET_LOADING)
 
 	try {
 		await api.post('/users', payload)
 
-		await router.push({ name: 'Home' })
+		router.push({ name: 'Logon' })
 	} catch (err) {
-		console.log(err.response.data.details)
+		commit(SessionTypes.SET_ERRORS, err.response.data)
 	}
 
-	commit(Types.REMOVE_LOADING)
+	commit(SessionTypes.REMOVE_LOADING)
 }
 
-export function actionCheckUid({ dispatch }) {
+export function actionCheckToken({ dispatch }) {
 	if (!token.getToken()) {
 		dispatch('actionUnsetSession')
 	}
 
-	dispatch('actionSetUid', token.getToken())
+	dispatch('actionSetToken', token.getToken())
 }
 
-export function actionSetUid({ commit }, payload) {
+export function actionSetToken({ commit }, payload) {
 	token.setToken(payload)
 
-	commit(Types.SET_TOKEN, payload)
+	commit(SessionTypes.SET_TOKEN, payload)
 }
 
-export async function actionUnsetSession({ commit }) {
+export function actionUnsetSession({ commit }) {
 	token.removeToken()
 
-	commit(Types.REMOVE_TOKEN)
-	commit(Types.REMOVE_USER)
-	commit(Types.REMOVE_LOADING)
-
-	router.replace({ name: 'Logon' })
+	commit(SessionTypes.REMOVE_TOKEN)
+	commit(SessionTypes.REMOVE_USER)
+	commit(SessionTypes.REMOVE_LOADING)
 }

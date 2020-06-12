@@ -1,22 +1,28 @@
-import Types from './types'
+import SessionTypes from './types'
 
 export default {
-	[Types.SET_TOKEN]: (state, payload) => {
+	[SessionTypes.SET_TOKEN]: (state, payload) => {
 		state.token = payload
 	},
-	[Types.SET_USER]: (state, payload) => {
+	[SessionTypes.SET_USER]: (state, payload) => {
 		state.user = payload
 	},
-	[Types.SET_LOADING]: state => {
+	[SessionTypes.SET_LOADING]: state => {
 		state.loading = true
 	},
-	[Types.REMOVE_TOKEN]: state => {
+	[SessionTypes.SET_ERRORS]: (state, payload) => {
+		state.errors = [payload]
+	},
+	[SessionTypes.REMOVE_TOKEN]: state => {
 		state.token = ''
 	},
-	[Types.REMOVE_USER]: state => {
+	[SessionTypes.REMOVE_USER]: state => {
 		state.user = {}
 	},
-	[Types.REMOVE_LOADING]: state => {
+	[SessionTypes.REMOVE_LOADING]: state => {
 		state.loading = false
+	},
+	[SessionTypes.REMOVE_ERRORS]: state => {
+		state.errors = []
 	},
 }
