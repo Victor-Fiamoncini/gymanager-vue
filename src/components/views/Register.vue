@@ -1,7 +1,7 @@
 <template>
 	<div id="register">
 		<form @submit.prevent="doRegisterRequest">
-			<b-card>
+			<b-card class="shadow">
 				<h1 class="brand-title">
 					<img
 						src="@/assets/images/logo.png"
@@ -81,7 +81,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	name: 'Logon',
+	name: 'Register',
 	data: () => ({
 		form: {
 			name: {
@@ -115,9 +115,11 @@ export default {
 			}
 		},
 		doGetInputValidationMessage(field) {
-			return this.errors.map(({ details }) => {
-				return details[0].context.key === field && details[0].context.label
-			})[0]
+			if (this.errors) {
+				return this.errors.map(({ details }) => {
+					return details[0].context.key === field && details[0].context.label
+				})[0]
+			}
 		},
 		async doRegisterRequest() {
 			await this.actionRegister({

@@ -1,11 +1,11 @@
 {
   "name": "gym-manager-front",
   "version": "0.1.0",
+  "license": "MIT",
   "author": {
     "name": "Victor B. Fiamoncini",
     "email": "victor.fiamoncini@gmail.com"
   },
-  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

@@ -5,7 +5,7 @@ import api from '../../../services/api'
 import SessionTypes from './types'
 import NotificationTypes from '../notification/types'
 
-export async function actionRegister({ commit }, payload) {
+export async function actionRegister({ commit, dispatch }, payload) {
 	commit(SessionTypes.SET_LOADING)
 
 	try {
@@ -24,7 +24,36 @@ export async function actionRegister({ commit }, payload) {
 			}
 		)
 	} catch (err) {
+		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
+	}
+
+	commit(SessionTypes.REMOVE_LOADING)
+}
+
+export async function actionLogon({ commit, dispatch }, payload) {
+	commit(SessionTypes.SET_LOADING)
+
+	try {
+		const response = await api.post('/sessions', payload)
+
+		dispatch('actionSetToken', response.data.token)
+		commit(SessionTypes.SET_USER, response.data.user)
+
+		router.push({ name: 'Dashboard' })
+	} catch (err) {
+		dispatch('actionUnsetSession')
+		commit(SessionTypes.SET_ERRORS, err.response.data)
+		commit(
+			`notification/${NotificationTypes.SET_NOTIFICATION}`,
+			{
+				type: 'secondary',
+				message: err.response.data.details[0].context.label,
+			},
+			{
+				root: true,
+			}
+		)
 	}
 
 	commit(SessionTypes.REMOVE_LOADING)
@@ -36,12 +65,27 @@ export function actionCheckToken({ dispatch }) {
 	}
 
 	dispatch('actionSetToken', token.getToken())
+	dispatch('actionLoadSession')
 }
 
 export function actionSetToken({ commit }, payload) {
 	token.setToken(payload)
 
 	commit(SessionTypes.SET_TOKEN, payload)
+}
+
+export async function actionLoadSession({ dispatch }) {
+	try {
+		const response = await api.get('/sessions')
+
+		dispatch('actionSetUser', response.data)
+	} catch (err) {
+		dispatch('actionUnsetSession')
+	}
+}
+
+export function actionSetUser({ commit }, payload) {
+	commit(SessionTypes.SET_USER, payload)
 }
 
 export function actionUnsetSession({ commit }) {

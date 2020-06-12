@@ -56,7 +56,7 @@
 
 <script>
 import NotificationList from '@/components/layout/NotificationList'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'Logon',
@@ -70,7 +70,14 @@ export default {
 		},
 	}),
 	computed: {
-		...mapGetters('session', ['errors', 'loading']),
+		...mapGetters('session', ['loading']),
+	},
+	methods: {
+		...mapActions('session', ['actionLogon']),
+
+		async doLogonRequest() {
+			await this.actionLogon(this.form)
+		},
 	},
 }
 </script>
