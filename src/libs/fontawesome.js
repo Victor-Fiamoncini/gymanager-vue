@@ -11,6 +11,9 @@ import {
 	faSpinner,
 	faPaperclip,
 	faTrashAlt,
+	faDumbbell,
+	faAddressCard,
+	faFileSignature,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -22,7 +25,10 @@ library.add(
 	faSignInAlt,
 	faSpinner,
 	faPaperclip,
-	faTrashAlt
+	faTrashAlt,
+	faDumbbell,
+	faAddressCard,
+	faFileSignature
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import store from './store'
 import Logon from './components/views/Logon'
 import Register from './components/views/Register'
-import Dashboard from './components/views/Dashboard'
+import Home from './components/views/Home'
 
 Vue.use(VueRouter)
 
@@ -31,8 +31,8 @@ const router = new VueRouter({
 		},
 		{
 			path: '/painel',
-			name: 'Dashboard',
-			component: Dashboard,
+			name: 'Home',
+			component: Home,
 			meta: {
 				title: 'Painel',
 				requiresAuth: true,
@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if (hasToken) {
-			return router.push({ name: 'Dashboard' })
+			return router.push({ name: 'Home' })
 		} else {
 			next()
 		}

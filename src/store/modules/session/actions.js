@@ -40,7 +40,7 @@ export async function actionLogon({ commit, dispatch }, payload) {
 		dispatch('actionSetToken', response.data.token)
 		commit(SessionTypes.SET_USER, response.data.user)
 
-		router.push({ name: 'Dashboard' })
+		router.push({ name: 'Home' })
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
@@ -74,18 +74,14 @@ export function actionSetToken({ commit }, payload) {
 	commit(SessionTypes.SET_TOKEN, payload)
 }
 
-export async function actionLoadSession({ dispatch }) {
+export async function actionLoadSession({ commit, dispatch }) {
 	try {
 		const response = await api.get('/sessions')
 
-		dispatch('actionSetUser', response.data)
+		commit(SessionTypes.SET_USER, response.data)
 	} catch (err) {
 		dispatch('actionUnsetSession')
 	}
-}
-
-export function actionSetUser({ commit }, payload) {
-	commit(SessionTypes.SET_USER, payload)
 }
 
 export function actionUnsetSession({ commit }) {
@@ -94,4 +90,5 @@ export function actionUnsetSession({ commit }) {
 	commit(SessionTypes.REMOVE_TOKEN)
 	commit(SessionTypes.REMOVE_USER)
 	commit(SessionTypes.REMOVE_LOADING)
+	commit(SessionTypes.REMOVE_ERRORS)
 }
