@@ -2,13 +2,12 @@
 	<b-modal
 		id="update-student"
 		size="lg"
-		title="Atualizar aluno(a)"
+		:title="`Atualizar aluno(a) ${student.name}`"
 		hide-footer
 		v-model="show"
 		body-bg-variant="light"
 	>
-		{{ student }}
-		<b-form @submit.prevent="doStoreStudent">
+		<b-form @submit.prevent="doUpdateStudent">
 			<b-row>
 				<b-form-group class="col-xl-6 col-lg-12" label="Nome" label-for="name">
 					<b-form-input
@@ -61,7 +60,6 @@
 						v-model="form.height"
 					/>
 				</b-form-group>
-
 				<div class="modal-footer w-100 px-3 pb-0">
 					<b-button
 						class="mr-2"
@@ -71,15 +69,15 @@
 					>
 						<template v-if="loading">
 							<font-awesome-icon icon="spinner" class="fa-spin" />
-							Cadastrando...
+							Atualizando...
 						</template>
 						<template v-else>
-							Cadastrar
+							Atualizar
 						</template>
 					</b-button>
 					<b-button
 						class="mr-0"
-						variant="dark"
+						variant="secondary"
 						type="button"
 						@click="doCloseModal"
 					>
@@ -100,23 +98,38 @@ export default {
 	data: () => ({
 		show: false,
 		form: {
-			name: '',
-			email: '',
-			age: 0,
-			weight: 0,
-			height: 0,
+			name: null,
+			email: null,
+			age: null,
+			weight: null,
+			height: null,
 		},
 	}),
 	computed: {
 		...mapGetters('student', ['loading']),
 	},
 	methods: {
-		...mapActions('student', ['actionStoreStudent']),
+		...mapActions('student', ['actionUpdateStudent']),
 
 		doCloseModal() {
 			this.show = false
 		},
-		async doStoreStudent() {},
+		async doUpdateStudent() {
+			if (await this.actionUpdateStudent({ ...this.$props.student })) {
+				this.form.name = null
+				this.form.email = null
+				this.form.age = null
+				this.form.weight = null
+				this.form.height = null
+			}
+		},
+	},
+	updated() {
+		this.form.name = this.$props.student.name
+		this.form.email = this.$props.student.email
+		this.form.age = this.$props.student.age
+		this.form.weight = this.$props.student.weight
+		this.form.height = this.$props.student.height
 	},
 }
 </script>

@@ -6,7 +6,6 @@
 			hover
 			responsive
 			outlined
-			selectable
 			emptyText="Nenhum aluno foi cadastrado no momento"
 			emptyFilteredText="Nenhum aluno foi encontrado para essa pesquisa"
 			show-empty
@@ -18,8 +17,7 @@
 			:fields="fields"
 			:items="students"
 			:current-page="currentPage"
-			@row-selected="doShowStudentOptions"
-			@filtered="onFiltered"
+			@filtered="doWhenFiltered"
 		>
 			<template v-slot:cell(age)="data">
 				{{ `${data.item.age} anos` }}
@@ -36,21 +34,33 @@
 					<strong class="ml-2">Carregando...</strong>
 				</div>
 			</template>
-			<template v-slot:cell(actions)="row">
+			<template v-slot:cell(update)="row">
 				<b-button
+					block
+					variant="warning"
 					size="sm"
-					@click="info(row.item, row.index, $event.target)"
-					class="mr-1"
+					v-b-modal.update-student
+					@click="doSelectStudent(row)"
 				>
-					Info modal
+					<font-awesome-icon icon="edit" />
+					Atualizar
 				</b-button>
-				<b-button size="sm" @click="row.toggleDetails">
-					{{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+			</template>
+			<template v-slot:cell(delete)="row">
+				<b-button
+					block
+					variant="danger"
+					size="sm"
+					v-b-modal.delete-student
+					@click="doSelectStudent(row)"
+				>
+					<font-awesome-icon icon="trash-alt" />
+					Deletar
 				</b-button>
 			</template>
 		</b-table>
 		<b-pagination
-			v-if="totalRows > perPage"
+			v-if="totalRows > perPage && !filter"
 			class="bg-light p-3"
 			align="center"
 			v-model="currentPage"
@@ -59,24 +69,27 @@
 			:total-rows="totalRows"
 			:per-page="perPage"
 		/>
-		<UpdateStudent />
+		<DeleteStudent id="delete-student" :student="currentStudent" />
+		<UpdateStudent id="update-student" :student="currentStudent" />
 	</div>
 </template>
 
 <script>
+import DeleteStudent from '@/components/utils/DeleteStudent'
 import UpdateStudent from '@/components/utils/UpdateStudent'
 
 export default {
 	name: 'StudentsTable',
 	props: ['filter', 'loading', 'students'],
 	components: {
+		DeleteStudent,
 		UpdateStudent,
 	},
 	data: function() {
 		return {
+			currentStudent: {},
 			currentPage: 1,
 			perPage: 10,
-			totalRows: this.$props.students.length,
 			fields: [
 				{
 					key: 'name',
@@ -108,20 +121,33 @@ export default {
 					headerTitle: 'Peso',
 					sortable: true,
 				},
+				{
+					key: 'update',
+					label: 'Atualizar',
+				},
+				{
+					key: 'delete',
+					label: 'Deletar',
+				},
 			],
 		}
 	},
-	methods: {
-		doShowStudentOptions(student) {
-			console.log(student)
+	computed: {
+		totalRows() {
+			return this.$props.students.length || 10
 		},
-		onFiltered(filteredItems) {
-			this.totalRows = filteredItems.length
+	},
+	methods: {
+		doSelectStudent(student) {
+			this.currentStudent = student.item
+		},
+		doWhenFiltered(filteredItems) {
+			this.$props.totalRows = filteredItems.length
 			this.currentPage = 1
 		},
 	},
 	mounted() {
-		this.totalRows = this.$props.students.length
+		this.$props.totalRows = this.$props.students.length
 	},
 }
 </script>
