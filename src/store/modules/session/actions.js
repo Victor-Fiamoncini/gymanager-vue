@@ -47,7 +47,7 @@ export async function actionLogon({ commit, dispatch }, payload) {
 		commit(
 			`notification/${NotificationTypes.SET_NOTIFICATION}`,
 			{
-				type: 'secondary',
+				type: 'danger',
 				message: err.response.data.details[0].context.label,
 			},
 			{

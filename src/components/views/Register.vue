@@ -1,7 +1,7 @@
 <template>
-	<div id="register">
+	<div id="page-register">
 		<form @submit.prevent="doRegisterRequest">
-			<b-card class="shadow">
+			<b-card class="shadow" bg-variant="light">
 				<h1 class="brand-title">
 					<img
 						src="@/assets/images/logo.png"
@@ -137,7 +137,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/app.scss';
 
-#register {
+#page-register {
 	display: flex;
 	align-items: center;
 	justify-content: center;

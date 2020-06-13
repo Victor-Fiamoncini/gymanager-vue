@@ -20,11 +20,13 @@ export async function actionStoreStudent({ commit, dispatch }, payload) {
 				root: true,
 			}
 		)
+
+		return true
 	} catch (err) {
 		commit(
 			`notification/${NotificationTypes.SET_NOTIFICATION}`,
 			{
-				type: 'secondary',
+				type: 'danger',
 				message: err.response.data.details[0].context.label,
 			},
 			{
@@ -47,7 +49,7 @@ export async function actionFetchStudents({ commit }) {
 		commit(
 			`notification/${NotificationTypes.SET_NOTIFICATION}`,
 			{
-				type: 'secondary',
+				type: 'danger',
 				message: err.response.data.details[0].context.label,
 			},
 			{

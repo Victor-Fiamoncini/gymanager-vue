@@ -1,12 +1,13 @@
 <template>
 	<b-modal
-		id="new-student"
+		id="update-student"
 		size="lg"
-		title="Cadastrar novo aluno(a)"
+		title="Atualizar aluno(a)"
 		hide-footer
 		v-model="show"
 		body-bg-variant="light"
 	>
+		{{ student }}
 		<b-form @submit.prevent="doStoreStudent">
 			<b-row>
 				<b-form-group class="col-xl-6 col-lg-12" label="Nome" label-for="name">
@@ -78,7 +79,7 @@
 					</b-button>
 					<b-button
 						class="mr-0"
-						variant="secondary"
+						variant="dark"
 						type="button"
 						@click="doCloseModal"
 					>
@@ -94,15 +95,16 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	name: 'NewStudent',
+	name: 'UpdateStudent',
+	props: ['student'],
 	data: () => ({
 		show: false,
 		form: {
 			name: '',
 			email: '',
-			age: null,
-			weight: null,
-			height: null,
+			age: 0,
+			weight: 0,
+			height: 0,
 		},
 	}),
 	computed: {
@@ -114,17 +116,7 @@ export default {
 		doCloseModal() {
 			this.show = false
 		},
-		async doStoreStudent() {
-			if (await this.actionStoreStudent(this.form)) {
-				this.doCloseModal()
-
-				this.form.name = ''
-				this.form.email = ''
-				this.form.age = 0
-				this.form.weight = 0
-				this.form.height = 0
-			}
-		},
+		async doStoreStudent() {},
 	},
 }
 </script>

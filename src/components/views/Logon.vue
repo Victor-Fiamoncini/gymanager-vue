@@ -1,8 +1,8 @@
 <template>
-	<div id="logon">
+	<div id="page-logon">
 		<NotificationList />
 		<form @submit.prevent="doLogonRequest">
-			<b-card class="shadow">
+			<b-card class="shadow" bg-variant="light">
 				<h1 class="brand-title">
 					<img
 						src="@/assets/images/logo.png"
@@ -85,7 +85,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/app.scss';
 
-#logon {
+#page-logon {
 	display: flex;
 	align-items: center;
 	justify-content: center;

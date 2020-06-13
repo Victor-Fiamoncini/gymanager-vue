@@ -10,12 +10,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/app.scss';
 
 #wrapper {
 	position: relative;
-	height: 100vh;
+	height: 100%;
 	background: $primary;
 }
 </style>

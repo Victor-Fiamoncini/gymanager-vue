@@ -32,6 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 #home {
+	height: 100vh;
 	.brand {
 		p {
 			font-size: 1.5rem;

@@ -3,29 +3,19 @@ $primary-dark: darken(#78C2AD, 10);
 $grey: #666;
 
 * {
-	outline-color: $primary;
+	outline-color: $primary !important;
 }
 
+html,
 body {
+	margin: 0;
 	height: 100%;
 	background: $primary;
-	&::-webkit-scrollbar {
-		width: 10px;
-	}
-	&::-webkit-scrollbar-track {
-		background: #f1f1f1;
-	}
-	&::-webkit-scrollbar-thumb {
-		background: $primary;
-		&:hover {
-			background: $primary-dark;
-		}
-	}
 }
 
-.active {
- 	font-weight: bold !important;
-	color: #000 !important;
+[id|="page-"] {
+	height: 100%;
+	min-height: 100vh;
 }
 
 .guest-link {

@@ -1,39 +1,40 @@
 <template>
-	<div id="students">
+	<div id="page-students">
 		<NotificationList />
 		<Navbar />
 		<b-container class="py-3">
 			<b-card bg-variant="light">
-				<b-card-body
-					class="p-0 d-flex justify-content-between align-items-center"
-				>
-					<b-card-title class="m-0">Gerenciamento de Alunos</b-card-title>
-					<b-button variant="primary" v-b-modal.new-student>
-						<font-awesome-icon icon="plus" class="mr-1" />
-						Cadastrar
-					</b-button>
+				<b-card-body class="p-0 row">
+					<b-col>
+						<b-button variant="primary" v-b-modal.new-student>
+							<font-awesome-icon icon="plus" class="mr-1" />
+							Cadastrar
+						</b-button>
+					</b-col>
+					<b-col md="4">
+						<b-form-group class="m-0" label-for="searchByName">
+							<b-input-group size="md">
+								<b-form-input
+									id="searchByName"
+									type="text"
+									placeholder="Buscar por nome"
+									v-model="filter"
+								/>
+								<b-input-group-append>
+									<b-button
+										variant="secondary"
+										:disabled="!filter"
+										@click="filter = ''"
+									>
+										Apagar
+									</b-button>
+								</b-input-group-append>
+							</b-input-group>
+						</b-form-group>
+					</b-col>
 				</b-card-body>
 			</b-card>
-			<b-table
-				class="mt-3 rounded"
-				striped
-				hover
-				responsive
-				head-variant="light"
-				table-variant="light"
-				:fields="fields"
-				:items="students"
-			>
-				<template v-slot:cell(age)="data">
-					{{ `${data.item.age} anos` }}
-				</template>
-				<template v-slot:cell(height)="data">
-					{{ `${data.item.height} m` }}
-				</template>
-				<template v-slot:cell(weight)="data">
-					{{ `${data.item.weight} kg` }}
-				</template>
-			</b-table>
+			<StudentsTable :filter="filter" :loading="loading" :students="students" />
 		</b-container>
 		<NewStudent />
 	</div>
@@ -43,51 +44,22 @@
 import Navbar from '@/components/layout/Navbar'
 import NewStudent from '@/components/utils/NewStudent'
 import NotificationList from '@/components/layout/NotificationList'
+import StudentsTable from '@/components/utils/StudentsTable'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	name: 'Home',
+	name: 'Students',
 	data: () => ({
-		fields: [
-			{
-				key: 'name',
-				label: 'Nome',
-				headerTitle: 'Nome',
-				sortable: true,
-			},
-			{
-				key: 'email',
-				label: 'E-mail',
-				headerTitle: 'E-mail',
-				sortable: true,
-			},
-			{
-				key: 'age',
-				label: 'Idade',
-				headerTitle: 'Idade',
-				sortable: true,
-			},
-			{
-				key: 'height',
-				label: 'Altura',
-				headerTitle: 'Altura',
-				sortable: true,
-			},
-			{
-				key: 'weight',
-				label: 'Peso',
-				headerTitle: 'Peso',
-				sortable: true,
-			},
-		],
+		filter: null,
 	}),
 	components: {
 		Navbar,
 		NewStudent,
 		NotificationList,
+		StudentsTable,
 	},
 	computed: {
-		...mapGetters('student', ['students']),
+		...mapGetters('student', ['loading', 'students']),
 	},
 	methods: {
 		...mapActions('student', ['actionFetchStudents']),
