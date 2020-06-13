@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import store from './store'
+
 import Logon from './components/views/Logon'
 import Register from './components/views/Register'
 import Home from './components/views/Home'
+import Students from './components/views/Students'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,15 @@ const router = new VueRouter({
 			component: Home,
 			meta: {
 				title: 'Painel',
+				requiresAuth: true,
+			},
+		},
+		{
+			path: '/painel/alunos',
+			name: 'Students',
+			component: Students,
+			meta: {
+				title: 'Alunos',
 				requiresAuth: true,
 			},
 		},

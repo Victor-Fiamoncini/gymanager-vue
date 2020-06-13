@@ -1,5 +1,5 @@
 <template>
-	<b-navbar toggleable="md" type="white" variant="light">
+	<b-navbar id="navbar" toggleable="md" type="light" variant="light">
 		<b-container>
 			<b-navbar-brand>
 				<img
@@ -55,12 +55,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar-brand {
-	display: flex;
-	align-items: center;
-	img {
-		margin: 0 12px 0 0;
-		width: 46px;
+@import '@/assets/scss/app.scss';
+
+#navbar {
+	.navbar-brand {
+		display: flex;
+		align-items: center;
+		img {
+			margin: 0 12px 0 0;
+			width: 46px;
+		}
+	}
+	.nav-link {
+		color: $primary;
+		&.active {
+			font-weight: bold;
+			color: $grey !important;
+		}
 	}
 }
 </style>

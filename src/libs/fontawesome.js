@@ -3,7 +3,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
 	faSignOutAlt,
-	faDollarSign,
 	faHome,
 	faList,
 	faWallet,
@@ -14,11 +13,11 @@ import {
 	faDumbbell,
 	faAddressCard,
 	faFileSignature,
+	faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
 	faSignOutAlt,
-	faDollarSign,
 	faHome,
 	faList,
 	faWallet,
@@ -28,7 +27,8 @@ library.add(
 	faTrashAlt,
 	faDumbbell,
 	faAddressCard,
-	faFileSignature
+	faFileSignature,
+	faPlus
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

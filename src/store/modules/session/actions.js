@@ -16,7 +16,7 @@ export async function actionRegister({ commit, dispatch }, payload) {
 		commit(
 			`notification/${NotificationTypes.SET_NOTIFICATION}`,
 			{
-				type: 'success',
+				type: 'primary',
 				message: `Seja bem-vindo ${payload.name}, faça seu logon para continuar`,
 			},
 			{
