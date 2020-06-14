@@ -1,5 +1,6 @@
 <template>
 	<b-alert
+		class="shadow"
 		fade
 		dismissible
 		:show="countdown"
@@ -9,8 +10,11 @@
 	>
 		<p>{{ notification.message }}</p>
 		<b-progress
-			height="4px"
-			variant="white"
+			class="shadow"
+			height="5px"
+			striped
+			animated
+			:variant="notification.type"
 			:max="seconds"
 			:value="countdown"
 		></b-progress>

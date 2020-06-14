@@ -70,7 +70,7 @@ export default {
 		color: $primary;
 		&.active {
 			font-weight: bold;
-			color: $grey !important;
+			color: $secondary !important;
 		}
 	}
 }

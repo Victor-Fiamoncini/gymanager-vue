@@ -1,39 +1,31 @@
 import router from '../../../router'
-import * as token from '../../../utils/token'
 
+import * as token from '../../helpers/token'
+import notify from '../../helpers/notify'
 import api from '../../../services/api'
 import SessionTypes from './types'
-import NotificationTypes from '../notification/types'
 
 export async function actionRegister({ commit, dispatch }, payload) {
 	commit(SessionTypes.SET_LOADING)
-
 	try {
 		await api.post('/users', payload)
 
 		router.push({ name: 'Logon' })
 
-		commit(
-			`notification/${NotificationTypes.SET_NOTIFICATION}`,
-			{
-				type: 'primary',
-				message: `Seja bem-vindo ${payload.name}, faça seu logon para continuar`,
-			},
-			{
-				root: true,
-			}
+		notify(
+			commit,
+			'success',
+			`Seja bem-vindo ${payload.name}, faça seu logon para continuar`
 		)
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
 	}
-
 	commit(SessionTypes.REMOVE_LOADING)
 }
 
 export async function actionLogon({ commit, dispatch }, payload) {
 	commit(SessionTypes.SET_LOADING)
-
 	try {
 		const response = await api.post('/sessions', payload)
 
@@ -44,18 +36,8 @@ export async function actionLogon({ commit, dispatch }, payload) {
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
-		commit(
-			`notification/${NotificationTypes.SET_NOTIFICATION}`,
-			{
-				type: 'danger',
-				message: err.response.data.details[0].context.label,
-			},
-			{
-				root: true,
-			}
-		)
+		notify(commit, 'danger', err.response.data.details[0].context.label)
 	}
-
 	commit(SessionTypes.REMOVE_LOADING)
 }
 

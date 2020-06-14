@@ -73,6 +73,7 @@
 							Cadastrando...
 						</template>
 						<template v-else>
+							<font-awesome-icon icon="plus" class="mr-1" />
 							Cadastrar
 						</template>
 					</b-button>
@@ -98,8 +99,8 @@ export default {
 	data: () => ({
 		show: false,
 		form: {
-			name: '',
-			email: '',
+			name: null,
+			email: null,
 			age: null,
 			weight: null,
 			height: null,
@@ -118,11 +119,11 @@ export default {
 			if (await this.actionStoreStudent(this.form)) {
 				this.doCloseModal()
 
-				this.form.name = ''
-				this.form.email = ''
-				this.form.age = 0
-				this.form.weight = 0
-				this.form.height = 0
+				this.form.name = null
+				this.form.email = null
+				this.form.age = null
+				this.form.weight = null
+				this.form.height = null
 			}
 		},
 	},

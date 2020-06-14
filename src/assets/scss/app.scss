@@ -1,6 +1,7 @@
 $primary: #78C2AD;
 $primary-dark: darken(#78C2AD, 10);
-$grey: #666;
+$secondary: #F3969A;
+$grey: #999;
 
 * {
 	outline-color: $primary !important;
@@ -20,8 +21,8 @@ body {
 
 .guest-link {
 	display: block;
-	margin: 16px 0 -20px;
+	margin: 20px 0 -20px;
 	font-size: 0.75rem;
-	transition: all .3s;
-	text-decoration: none;
+	font-weight: 800;
+	color: $secondary;
 }

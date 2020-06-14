@@ -1,6 +1,5 @@
 <template>
 	<div id="page-students">
-		<NotificationList />
 		<Navbar />
 		<b-container class="py-3">
 			<b-card bg-variant="light">
@@ -43,7 +42,6 @@
 <script>
 import Navbar from '@/components/layout/Navbar'
 import NewStudent from '@/components/utils/NewStudent'
-import NotificationList from '@/components/layout/NotificationList'
 import StudentsTable from '@/components/utils/StudentsTable'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -55,7 +53,6 @@ export default {
 	components: {
 		Navbar,
 		NewStudent,
-		NotificationList,
 		StudentsTable,
 	},
 	computed: {

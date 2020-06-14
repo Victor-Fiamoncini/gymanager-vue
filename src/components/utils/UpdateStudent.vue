@@ -15,7 +15,7 @@
 						id="name"
 						trim
 						required
-						v-model="form.name"
+						v-model="student.name"
 					/>
 				</b-form-group>
 				<b-form-group
@@ -28,11 +28,17 @@
 						id="email"
 						trim
 						required
-						v-model="form.email"
+						v-model="student.email"
 					/>
 				</b-form-group>
 				<b-form-group class="col-xl-4 col-lg-12" label="Idade" label-for="age">
-					<b-form-input type="text" id="age" trim required v-model="form.age" />
+					<b-form-input
+						type="text"
+						id="age"
+						trim
+						required
+						v-model="student.age"
+					/>
 				</b-form-group>
 				<b-form-group
 					class="col-xl-4 col-lg-12"
@@ -44,7 +50,7 @@
 						id="weight"
 						trim
 						required
-						v-model="form.weight"
+						v-model="student.weight"
 					/>
 				</b-form-group>
 				<b-form-group
@@ -57,7 +63,7 @@
 						id="height"
 						trim
 						required
-						v-model="form.height"
+						v-model="student.height"
 					/>
 				</b-form-group>
 				<div class="modal-footer w-100 px-3 pb-0">
@@ -72,6 +78,7 @@
 							Atualizando...
 						</template>
 						<template v-else>
+							<font-awesome-icon icon="edit" class="mr-1" />
 							Atualizar
 						</template>
 					</b-button>
@@ -97,13 +104,6 @@ export default {
 	props: ['student'],
 	data: () => ({
 		show: false,
-		form: {
-			name: null,
-			email: null,
-			age: null,
-			weight: null,
-			height: null,
-		},
 	}),
 	computed: {
 		...mapGetters('student', ['loading']),
@@ -115,21 +115,15 @@ export default {
 			this.show = false
 		},
 		async doUpdateStudent() {
-			if (await this.actionUpdateStudent({ ...this.$props.student })) {
-				this.form.name = null
-				this.form.email = null
-				this.form.age = null
-				this.form.weight = null
-				this.form.height = null
+			const updated = await this.actionUpdateStudent({
+				...this.$props.student,
+				id: this.$props.student.id,
+			})
+
+			if (updated) {
+				this.doCloseModal()
 			}
 		},
-	},
-	updated() {
-		this.form.name = this.$props.student.name
-		this.form.email = this.$props.student.email
-		this.form.age = this.$props.student.age
-		this.form.weight = this.$props.student.weight
-		this.form.height = this.$props.student.height
 	},
 }
 </script>

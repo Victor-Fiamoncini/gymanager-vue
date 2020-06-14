@@ -2,8 +2,8 @@
 	<b-modal
 		id="delete-student"
 		size="md"
-		:title="`Deletar aluno(a) ${student.name}`"
 		hide-footer
+		:title="`Deletar aluno(a) ${student.name}`"
 		v-model="show"
 	>
 		<b-row>
@@ -19,6 +19,7 @@
 					variant="primary"
 					@click="doDeleteStudent"
 				>
+					<font-awesome-icon icon="trash-alt" class="mr-1" />
 					Sim, excluír
 				</b-button>
 				<b-button
@@ -50,7 +51,7 @@ export default {
 			this.show = false
 		},
 		async doDeleteStudent() {
-			if (await this.actionDeleteStudent({ ...this.$props.student })) {
+			if (await this.actionDeleteStudent({ ...this.student })) {
 				this.doCloseModal()
 			}
 		},

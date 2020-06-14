@@ -3,12 +3,11 @@
 		<b-table
 			class="mt-3 rounded"
 			striped
-			hover
 			responsive
 			outlined
+			show-empty
 			emptyText="Nenhum aluno foi cadastrado no momento"
 			emptyFilteredText="Nenhum aluno foi encontrado para essa pesquisa"
-			show-empty
 			table-variant="light"
 			select-mode="single"
 			:per-page="perPage"
@@ -42,7 +41,7 @@
 					v-b-modal.update-student
 					@click="doSelectStudent(row)"
 				>
-					<font-awesome-icon icon="edit" />
+					<font-awesome-icon icon="edit" class="mr-1" />
 					Atualizar
 				</b-button>
 			</template>
@@ -54,7 +53,7 @@
 					v-b-modal.delete-student
 					@click="doSelectStudent(row)"
 				>
-					<font-awesome-icon icon="trash-alt" />
+					<font-awesome-icon icon="trash-alt" class="mr-1" />
 					Deletar
 				</b-button>
 			</template>
@@ -69,14 +68,15 @@
 			:total-rows="totalRows"
 			:per-page="perPage"
 		/>
-		<DeleteStudent id="delete-student" :student="currentStudent" />
-		<UpdateStudent id="update-student" :student="currentStudent" />
+		<DeleteStudent v-if="student" id="delete-student" :student="student" />
+		<UpdateStudent v-if="student" id="update-student" :student="student" />
 	</div>
 </template>
 
 <script>
 import DeleteStudent from '@/components/utils/DeleteStudent'
 import UpdateStudent from '@/components/utils/UpdateStudent'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'StudentsTable',
@@ -85,61 +85,62 @@ export default {
 		DeleteStudent,
 		UpdateStudent,
 	},
-	data: function() {
-		return {
-			currentStudent: {},
-			currentPage: 1,
-			perPage: 10,
-			fields: [
-				{
-					key: 'name',
-					label: 'Nome',
-					headerTitle: 'Nome',
-					sortable: true,
-				},
-				{
-					key: 'email',
-					label: 'E-mail',
-					headerTitle: 'E-mail',
-					sortable: true,
-				},
-				{
-					key: 'age',
-					label: 'Idade',
-					headerTitle: 'Idade',
-					sortable: true,
-				},
-				{
-					key: 'height',
-					label: 'Altura',
-					headerTitle: 'Altura',
-					sortable: true,
-				},
-				{
-					key: 'weight',
-					label: 'Peso',
-					headerTitle: 'Peso',
-					sortable: true,
-				},
-				{
-					key: 'update',
-					label: 'Atualizar',
-				},
-				{
-					key: 'delete',
-					label: 'Deletar',
-				},
-			],
-		}
-	},
+	data: () => ({
+		currentPage: 1,
+		perPage: 10,
+		fields: [
+			{
+				key: 'name',
+				label: 'Nome',
+				headerTitle: 'Nome',
+				sortable: true,
+			},
+			{
+				key: 'email',
+				label: 'E-mail',
+				headerTitle: 'E-mail',
+				sortable: true,
+			},
+			{
+				key: 'age',
+				label: 'Idade',
+				headerTitle: 'Idade',
+				sortable: true,
+			},
+			{
+				key: 'height',
+				label: 'Altura',
+				headerTitle: 'Altura',
+				sortable: true,
+			},
+			{
+				key: 'weight',
+				label: 'Peso',
+				headerTitle: 'Peso',
+				sortable: true,
+			},
+			{
+				key: 'update',
+				label: 'Atualizar',
+			},
+			{
+				key: 'delete',
+				label: 'Deletar',
+			},
+		],
+	}),
 	computed: {
+		...mapGetters('student', ['student']),
+
 		totalRows() {
 			return this.$props.students.length || 10
 		},
 	},
 	methods: {
+		...mapActions('student', ['actionSetStudent']),
+
 		doSelectStudent(student) {
-			this.currentStudent = student.item
+			this.actionSetStudent(student.item)
 		},
 		doWhenFiltered(filteredItems) {
 			this.$props.totalRows = filteredItems.length

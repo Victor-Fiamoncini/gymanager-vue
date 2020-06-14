@@ -1,12 +1,18 @@
 <template>
 	<div id="wrapper">
+		<NotificationList />
 		<router-view />
 	</div>
 </template>
 
 <script>
+import NotificationList from '@/components/layout/NotificationList'
+
 export default {
 	name: 'App',
+	components: {
+		NotificationList,
+	},
 }
 </script>
 

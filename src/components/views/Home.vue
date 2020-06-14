@@ -1,6 +1,5 @@
 <template>
-	<div id="home">
-		<NotificationList />
+	<div id="page-home">
 		<Navbar />
 		<b-container class="py-3">
 			<b-jumbotron>
@@ -15,14 +14,12 @@
 
 <script>
 import Navbar from '@/components/layout/Navbar'
-import NotificationList from '@/components/layout/NotificationList'
 import { mapGetters } from 'vuex'
 
 export default {
 	name: 'Home',
 	components: {
 		Navbar,
-		NotificationList,
 	},
 	computed: {
 		...mapGetters('session', ['user']),
@@ -31,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#home {
+#page-home {
 	height: 100vh;
 	.brand {
 		p {
