@@ -97,22 +97,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
 	name: 'UpdateStudent',
-	props: ['student'],
+	props: ['loading', 'student'],
 	data: () => ({
 		show: false,
 	}),
-	computed: {
-		...mapGetters('student', ['loading']),
-	},
 	methods: {
-		...mapActions('student', ['actionUpdateStudent']),
+		...mapActions('student', ['actionUpdateStudent', 'actionUnsetStudent']),
 
 		doCloseModal() {
 			this.show = false
+			this.actionUnsetStudent()
 		},
 		async doUpdateStudent() {
 			const updated = await this.actionUpdateStudent({

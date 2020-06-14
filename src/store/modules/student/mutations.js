@@ -19,4 +19,10 @@ export default {
 	[StudentTypes.REMOVE_LOADING]: state => {
 		state.loading = false
 	},
+	[StudentTypes.FILTER_STUDENTS]: (state, payload) => {
+		state.students = state.students.filter(student => student.id !== payload)
+	},
+	[StudentTypes.PUSH_STUDENT]: (state, payload) => {
+		state.students = [...state.students, payload]
+	},
 }

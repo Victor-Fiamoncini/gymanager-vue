@@ -20,7 +20,7 @@
 					@click="doDeleteStudent"
 				>
 					<font-awesome-icon icon="trash-alt" class="mr-1" />
-					Sim, excluír
+					Sim, deletar
 				</b-button>
 				<b-button
 					class="mr-0"
@@ -45,10 +45,11 @@ export default {
 		show: false,
 	}),
 	methods: {
-		...mapActions('student', ['actionDeleteStudent']),
+		...mapActions('student', ['actionDeleteStudent', 'actionUnsetStudent']),
 
 		doCloseModal() {
 			this.show = false
+			this.actionUnsetStudent()
 		},
 		async doDeleteStudent() {
 			if (await this.actionDeleteStudent({ ...this.student })) {

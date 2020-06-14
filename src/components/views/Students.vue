@@ -33,7 +33,7 @@
 					</b-col>
 				</b-card-body>
 			</b-card>
-			<StudentsTable :filter="filter" :loading="loading" :students="students" />
+			<StudentsTable :filter="filter" />
 		</b-container>
 		<NewStudent />
 	</div>
@@ -43,7 +43,7 @@
 import Navbar from '@/components/layout/Navbar'
 import NewStudent from '@/components/utils/NewStudent'
 import StudentsTable from '@/components/utils/StudentsTable'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
 	name: 'Students',
@@ -54,9 +54,6 @@ export default {
 		Navbar,
 		NewStudent,
 		StudentsTable,
-	},
-	computed: {
-		...mapGetters('student', ['loading', 'students']),
 	},
 	methods: {
 		...mapActions('student', ['actionFetchStudents']),

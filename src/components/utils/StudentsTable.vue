@@ -69,7 +69,12 @@
 			:per-page="perPage"
 		/>
 		<DeleteStudent v-if="student" id="delete-student" :student="student" />
-		<UpdateStudent v-if="student" id="update-student" :student="student" />
+		<UpdateStudent
+			v-if="student"
+			id="update-student"
+			:loading="loading"
+			:student="student"
+		/>
 	</div>
 </template>
 
@@ -80,7 +85,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'StudentsTable',
-	props: ['filter', 'loading', 'students'],
+	props: ['filter'],
 	components: {
 		DeleteStudent,
 		UpdateStudent,
@@ -130,10 +135,15 @@ export default {
 		],
 	}),
 	computed: {
-		...mapGetters('student', ['student']),
+		...mapGetters('student', ['loading', 'student', 'students']),
 
-		totalRows() {
-			return this.$props.students.length || 10
+		totalRows: {
+			get() {
+				return this.students.length || this.perPage
+			},
+			set(value) {
+				this.val = value
+			},
 		},
 	},
 	methods: {
@@ -143,12 +153,12 @@ export default {
 			this.actionSetStudent(student.item)
 		},
 		doWhenFiltered(filteredItems) {
-			this.$props.totalRows = filteredItems.length
+			this.totalRows = filteredItems.length
 			this.currentPage = 1
 		},
 	},
 	mounted() {
-		this.$props.totalRows = this.$props.students.length
+		this.totalRows = this.students.length
 	},
 }
 </script>

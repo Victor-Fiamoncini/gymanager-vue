@@ -1,5 +1,4 @@
 import router from '../../../router'
-
 import * as token from '../../helpers/token'
 import notify from '../../helpers/notify'
 import api from '../../../services/api'
