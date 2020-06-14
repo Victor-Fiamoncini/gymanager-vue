@@ -12,23 +12,23 @@
 			<b-navbar-toggle target="navbar-collapse" />
 			<b-collapse id="navbar-collapse" is-nav>
 				<b-navbar-nav class="ml-auto">
-					<b-nav-item to="/painel" exact exact-active-class="active">
-						<font-awesome-icon icon="home" />
-						Home
-					</b-nav-item>
-					<b-nav-item to="/painel/alunos" exact exact-active-class="active">
+					<b-nav-item to="/alunos" exact exact-active-class="active">
 						<font-awesome-icon icon="dumbbell" />
 						Alunos
 					</b-nav-item>
-					<b-nav-item to="/painel/planos" exact exact-active-class="active">
+					<b-nav-item to="/planos" exact exact-active-class="active">
 						<font-awesome-icon icon="file-signature" />
 						Planos
 					</b-nav-item>
-					<b-nav-item to="/painel/matriculas" exact exact-active-class="active">
+					<b-nav-item to="/matriculas" exact exact-active-class="active">
 						<font-awesome-icon icon="address-card" />
 						Matrículas
 					</b-nav-item>
-					<b-nav-item to="/" @click="doLogout">
+					<b-nav-item to="/configuracoes" exact exact-active-class="active">
+						<font-awesome-icon icon="cogs" />
+						Configurações
+					</b-nav-item>
+					<b-nav-item @click="doLogout">
 						<font-awesome-icon icon="sign-out-alt" />
 						Logout
 					</b-nav-item>
@@ -48,7 +48,7 @@ export default {
 		doLogout() {
 			this.actionUnsetSession()
 
-			this.$router.replace({ name: 'Logon' })
+			this.$router.push({ name: 'Logon' })
 		},
 	},
 }

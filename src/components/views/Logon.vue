@@ -1,6 +1,6 @@
 <template>
 	<div id="page-logon">
-		<form @submit.prevent="doLogonRequest">
+		<form @submit.prevent="doLogon">
 			<b-card class="shadow" bg-variant="light">
 				<h1 class="brand-title">
 					<img
@@ -29,12 +29,7 @@
 							v-model="form.password"
 						/>
 					</b-form-group>
-					<b-button
-						block
-						variant="primary"
-						:disabled="loading"
-						@click.prevent="doLogonRequest"
-					>
+					<b-button block type="submit" variant="primary" :disabled="loading">
 						<template v-if="loading">
 							<font-awesome-icon icon="spinner" class="fa-spin" />
 							Entrando...
@@ -70,7 +65,7 @@ export default {
 	methods: {
 		...mapActions('session', ['actionLogon']),
 
-		async doLogonRequest() {
+		async doLogon() {
 			await this.actionLogon(this.form)
 		},
 	},

@@ -19,6 +19,11 @@ body {
 	min-height: 100vh;
 }
 
+input,
+textarea {
+	border: 0 !important;
+}
+
 .guest-link {
 	display: block;
 	margin: 20px 0 -20px;

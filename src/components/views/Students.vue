@@ -2,7 +2,7 @@
 	<div id="page-students">
 		<Navbar />
 		<b-container class="py-3">
-			<b-card bg-variant="light">
+			<b-card bg-variant="light" class="shadow">
 				<b-card-body class="p-0 row">
 					<b-col>
 						<b-button variant="primary" v-b-modal.new-student>

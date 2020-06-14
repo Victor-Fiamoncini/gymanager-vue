@@ -4,8 +4,8 @@ import store from './store'
 
 import Logon from './components/views/Logon'
 import Register from './components/views/Register'
-import Home from './components/views/Home'
 import Students from './components/views/Students'
+import Settings from './components/views/Settings'
 
 Vue.use(VueRouter)
 
@@ -31,20 +31,20 @@ const router = new VueRouter({
 			},
 		},
 		{
-			path: '/painel',
-			name: 'Home',
-			component: Home,
-			meta: {
-				title: 'Painel',
-				requiresAuth: true,
-			},
-		},
-		{
-			path: '/painel/alunos',
+			path: '/alunos',
 			name: 'Students',
 			component: Students,
 			meta: {
 				title: 'Alunos',
+				requiresAuth: true,
+			},
+		},
+		{
+			path: '/configuracoes',
+			name: 'Settings',
+			component: Settings,
+			meta: {
+				title: 'Configurações',
 				requiresAuth: true,
 			},
 		},
@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if (hasToken) {
-			return router.push({ name: 'Home' })
+			return router.push({ name: 'Students' })
 		} else {
 			next()
 		}

@@ -15,6 +15,7 @@ import {
 	faFileSignature,
 	faPlus,
 	faEdit,
+	faCogs,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -30,7 +31,8 @@ library.add(
 	faAddressCard,
 	faFileSignature,
 	faPlus,
-	faEdit
+	faEdit,
+	faCogs
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -1,7 +1,7 @@
 <template>
 	<div id="students-table">
 		<b-table
-			class="mt-3 rounded"
+			class="mt-3 rounded shadow"
 			striped
 			responsive
 			outlined

@@ -1,6 +1,6 @@
 <template>
 	<div id="page-register">
-		<form @submit.prevent="doRegisterRequest">
+		<form @submit.prevent="doRegister">
 			<b-card class="shadow" bg-variant="light">
 				<h1 class="brand-title">
 					<img
@@ -53,12 +53,7 @@
 							{{ doGetInputValidationMessage('password') }}
 						</b-form-invalid-feedback>
 					</b-form-group>
-					<b-button
-						block
-						variant="primary"
-						:disabled="loading"
-						@click.prevent="doRegisterRequest"
-					>
+					<b-button block variant="primary" type="submit" :disabled="loading">
 						<template v-if="loading">
 							<font-awesome-icon icon="spinner" class="fa-spin" />
 							Cadastrando...
@@ -121,7 +116,7 @@ export default {
 				})[0]
 			}
 		},
-		async doRegisterRequest() {
+		async doRegister() {
 			await this.actionRegister({
 				name: this.form.name.text,
 				email: this.form.email.text,

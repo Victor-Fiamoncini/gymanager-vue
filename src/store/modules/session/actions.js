@@ -14,7 +14,7 @@ export async function actionRegister({ commit, dispatch }, payload) {
 		notify(
 			commit,
 			'success',
-			`Seja bem-vindo ${payload.name}, faça seu logon para continuar`
+			`Seja bem-vindo(a) ${payload.name}, faça seu logon para continuar`
 		)
 	} catch (err) {
 		dispatch('actionUnsetSession')
@@ -31,10 +31,24 @@ export async function actionLogon({ commit, dispatch }, payload) {
 		dispatch('actionSetToken', response.data.token)
 		commit(SessionTypes.SET_USER, response.data.user)
 
-		router.push({ name: 'Home' })
+		router.push({ name: 'Students' })
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
+		notify(commit, 'danger', err.response.data.details[0].context.label)
+	}
+	commit(SessionTypes.REMOVE_LOADING)
+}
+
+export async function actionUpdateUser({ commit }, payload) {
+	commit(SessionTypes.SET_LOADING)
+	const { id, name, email, password, confirmPassword } = payload
+
+	try {
+		await api.put(`/users/${id}`, { name, email, password, confirmPassword })
+
+		notify(commit, 'success', 'Seus dados foram atualizados com sucesso')
+	} catch (err) {
 		notify(commit, 'danger', err.response.data.details[0].context.label)
 	}
 	commit(SessionTypes.REMOVE_LOADING)
