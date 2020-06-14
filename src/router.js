@@ -6,6 +6,7 @@ import Logon from './components/views/Logon'
 import Register from './components/views/Register'
 import Students from './components/views/Students'
 import Settings from './components/views/Settings'
+import Plans from './components/views/Plans'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,15 @@ const router = new VueRouter({
 			component: Settings,
 			meta: {
 				title: 'Configurações',
+				requiresAuth: true,
+			},
+		},
+		{
+			path: '/planos',
+			name: 'Plans',
+			component: Plans,
+			meta: {
+				title: 'Planos',
 				requiresAuth: true,
 			},
 		},
