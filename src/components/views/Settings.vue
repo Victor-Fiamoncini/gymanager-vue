@@ -59,24 +59,48 @@
 									</b-form-group>
 								</b-col>
 							</b-row>
-							<b-button variant="primary" type="submit" :disabled="loading">
-								<template v-if="loading">
-									<font-awesome-icon icon="spinner" class="fa-spin" />
-									Atualizando...
-								</template>
-								<template v-else>
-									<font-awesome-icon icon="sign-in-alt" />
-									Atualizar
-								</template>
-							</b-button>
+							<b-row>
+								<b-col>
+									<b-button variant="primary" type="submit" :disabled="loading">
+										<template v-if="loading">
+											<font-awesome-icon icon="spinner" class="fa-spin" />
+											Atualizando...
+										</template>
+										<template v-else>
+											<font-awesome-icon icon="sign-in-alt" class="mr-1" />
+											Atualizar dados
+										</template>
+									</b-button>
+								</b-col>
+							</b-row>
+							<hr />
+							<b-row>
+								<b-col class="p-0">
+									<form
+										@submit.prevent="doUpdateUserPhoto"
+										enctype="multipart/form-data"
+									>
+										<b-col>
+											<h4 class="display-6">Atualizar foto</h4>
+										</b-col>
+										<b-col class="mt-3">
+											<StorePhoto @doEmitFile="doSetFile" />
+										</b-col>
+										<b-col class="mt-3">
+											<b-button variant="primary" type="submit">
+												<font-awesome-icon icon="camera" class="mr-1" />
+												Atualizar foto
+											</b-button>
+										</b-col>
+									</form>
+								</b-col>
+							</b-row>
 						</form>
 					</b-col>
 					<b-col lg="6" class="mt-lg-0 mt-3">
 						<b-row>
 							<b-col>
-								<h4 class="display-6 mb-3">
-									Informações úteis
-								</h4>
+								<h4 class="display-6 mb-3">Informações úteis</h4>
 							</b-col>
 						</b-row>
 						<b-jumbotron bg-variant="white" class="p-3">
@@ -91,33 +115,44 @@
 
 <script>
 import Navbar from '@/components/layout/Navbar'
+import StorePhoto from '@/components/utils/StorePhoto'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'Settings',
 	components: {
 		Navbar,
+		StorePhoto,
 	},
 	data: () => ({
 		form: {
 			password: null,
 			confirmPassword: null,
 		},
+		photo: null,
 	}),
 	computed: {
 		...mapGetters('session', ['loading', 'user']),
 	},
 	methods: {
-		...mapActions('session', ['actionUpdateUser']),
+		...mapActions('session', ['actionUpdateUser', 'actionUpdateUserPhoto']),
 
 		async doUpdateUser() {
 			await this.actionUpdateUser({
-				id: this.user.id,
 				name: this.user.name,
 				email: this.user.email,
 				password: this.form.password,
 				confirmPassword: this.form.confirmPassword,
 			})
+		},
+		doSetFile(file) {
+			this.photo = file
+		},
+		async doUpdateUserPhoto() {
+			const data = new FormData()
+			data.append('photo', this.photo)
+
+			await this.actionUpdateUserPhoto(data)
 		},
 	},
 }
@@ -126,10 +161,5 @@ export default {
 <style lang="scss" scoped>
 #page-settings {
 	height: 100vh;
-	.brand {
-		p {
-			font-size: 1.5rem;
-		}
-	}
 }
 </style>

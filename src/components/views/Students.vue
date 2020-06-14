@@ -7,7 +7,7 @@
 					<b-col>
 						<b-button variant="primary" v-b-modal.new-student>
 							<font-awesome-icon icon="plus" class="mr-1" />
-							Cadastrar
+							Cadastrar novo aluno
 						</b-button>
 					</b-col>
 					<b-col md="4">

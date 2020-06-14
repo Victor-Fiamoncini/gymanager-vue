@@ -1,3 +1,5 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 $primary: #78C2AD;
 $primary-dark: darken(#78C2AD, 10);
 $secondary: #F3969A;
@@ -12,6 +14,19 @@ body {
 	margin: 0;
 	height: 100%;
 	background: $primary;
+}
+
+
+body::-webkit-scrollbar {
+	width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+	background: $secondary;
 }
 
 [id|="page-"] {

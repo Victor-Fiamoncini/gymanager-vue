@@ -7,7 +7,7 @@
 					<b-col>
 						<b-button variant="primary" v-b-modal.new-plan>
 							<font-awesome-icon icon="plus" class="mr-1" />
-							Cadastrar
+							Cadastrar novo plano
 						</b-button>
 					</b-col>
 				</b-card-body>

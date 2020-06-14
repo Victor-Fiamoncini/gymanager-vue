@@ -40,9 +40,10 @@ export async function actionLogon({ commit, dispatch }, payload) {
 	commit(SessionTypes.REMOVE_LOADING)
 }
 
-export async function actionUpdateUser({ commit }, payload) {
+export async function actionUpdateUser({ commit, getters }, payload) {
 	commit(SessionTypes.SET_LOADING)
-	const { id, name, email, password, confirmPassword } = payload
+	const { id } = getters.user
+	const { name, email, password, confirmPassword } = payload
 
 	try {
 		await api.put(`/users/${id}`, { name, email, password, confirmPassword })
@@ -52,6 +53,18 @@ export async function actionUpdateUser({ commit }, payload) {
 		notify(commit, 'danger', err.response.data.details[0].context.label)
 	}
 	commit(SessionTypes.REMOVE_LOADING)
+}
+
+export async function actionUpdateUserPhoto({ commit, getters }, payload) {
+	const { id } = getters.user
+
+	try {
+		await api.put(`/users/${id}/photo`, payload)
+
+		notify(commit, 'success', 'Foto atualizada com sucesso')
+	} catch (err) {
+		notify(commit, 'danger', err.response.data.details[0].context.label)
+	}
 }
 
 export function actionCheckToken({ dispatch }) {
