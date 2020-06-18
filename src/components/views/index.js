@@ -1,0 +1,6 @@
+export { default as Home } from './Home'
+export { default as Logon } from './Logon'
+export { default as Plans } from './Plans'
+export { default as Register } from './Register'
+export { default as Settings } from './Settings'
+export { default as Students } from './Students'

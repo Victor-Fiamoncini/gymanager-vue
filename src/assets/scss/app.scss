@@ -29,14 +29,23 @@ body::-webkit-scrollbar-thumb {
 	background: $secondary;
 }
 
-[id|="page-"] {
-	height: 100%;
-	min-height: 100vh;
+input,
+textarea,
+label {
+	border: 0 !important;
 }
 
-input,
-textarea {
-	border: 0 !important;
+input {
+	&[type=file] {
+		cursor: pointer;
+	}
+}
+
+.custom-file-label {
+	&::after {
+		height: 100%;
+		content: 'Procurar' !important;
+	}
 }
 
 .guest-link {

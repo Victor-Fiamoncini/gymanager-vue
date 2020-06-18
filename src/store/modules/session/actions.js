@@ -31,7 +31,7 @@ export async function actionLogon({ commit, dispatch }, payload) {
 		dispatch('actionSetToken', response.data.token)
 		commit(SessionTypes.SET_USER, response.data.user)
 
-		router.push({ name: 'Students' })
+		router.push({ name: 'Home' })
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)

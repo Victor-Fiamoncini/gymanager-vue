@@ -1,6 +1,6 @@
 import api from '../../services/api'
 
-export const setToken = token => {
+export function setToken(token) {
 	if (token) {
 		localStorage.setItem('auth_token', token)
 		api.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -10,7 +10,7 @@ export const setToken = token => {
 	}
 }
 
-export const removeToken = () => {
+export function removeToken() {
 	localStorage.removeItem('auth_token')
 	delete api.defaults.headers.common['Authorization']
 }

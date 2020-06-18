@@ -12,6 +12,10 @@
 			<b-navbar-toggle target="navbar-collapse" />
 			<b-collapse id="navbar-collapse" is-nav>
 				<b-navbar-nav class="ml-auto">
+					<b-nav-item to="/home" exact exact-active-class="active">
+						<font-awesome-icon icon="home" />
+						Home
+					</b-nav-item>
 					<b-nav-item to="/alunos" exact exact-active-class="active">
 						<font-awesome-icon icon="dumbbell" />
 						Alunos

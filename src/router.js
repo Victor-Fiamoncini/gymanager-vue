@@ -1,12 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
-
-import Logon from './components/views/Logon'
-import Register from './components/views/Register'
-import Students from './components/views/Students'
-import Settings from './components/views/Settings'
-import Plans from './components/views/Plans'
+import * as views from './components/views'
 
 Vue.use(VueRouter)
 
@@ -16,7 +11,7 @@ const router = new VueRouter({
 		{
 			path: '/',
 			name: 'Logon',
-			component: Logon,
+			component: views.Logon,
 			meta: {
 				title: 'Logon',
 				requiresAuth: false,
@@ -25,16 +20,25 @@ const router = new VueRouter({
 		{
 			path: '/cadastro',
 			name: 'Register',
-			component: Register,
+			component: views.Register,
 			meta: {
 				title: 'Cadastro',
 				requiresAuth: false,
 			},
 		},
 		{
+			path: '/home',
+			name: 'Home',
+			component: views.Home,
+			meta: {
+				title: 'Home',
+				requiresAuth: true,
+			},
+		},
+		{
 			path: '/alunos',
 			name: 'Students',
-			component: Students,
+			component: views.Students,
 			meta: {
 				title: 'Alunos',
 				requiresAuth: true,
@@ -43,7 +47,7 @@ const router = new VueRouter({
 		{
 			path: '/configuracoes',
 			name: 'Settings',
-			component: Settings,
+			component: views.Settings,
 			meta: {
 				title: 'Configurações',
 				requiresAuth: true,
@@ -52,7 +56,7 @@ const router = new VueRouter({
 		{
 			path: '/planos',
 			name: 'Plans',
-			component: Plans,
+			component: views.Plans,
 			meta: {
 				title: 'Planos',
 				requiresAuth: true,
@@ -82,9 +86,9 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if (hasToken) {
-			return router.push({ name: 'Students' })
+			return router.push({ name: 'Home' })
 		} else {
-			next()
+			return next()
 		}
 	}
 })

@@ -8,7 +8,7 @@
 						<form @submit.prevent="doUpdateUser">
 							<b-row>
 								<b-col>
-									<h4 class="display-6 mb-3">Atualizar dados</h4>
+									<h4 class="display-6 mb-3">Atualizar login</h4>
 								</b-col>
 							</b-row>
 							<b-row>
@@ -73,39 +73,30 @@
 									</b-button>
 								</b-col>
 							</b-row>
-							<hr />
-							<b-row>
-								<b-col class="p-0">
-									<form
-										@submit.prevent="doUpdateUserPhoto"
-										enctype="multipart/form-data"
-									>
-										<b-col>
-											<h4 class="display-6">Atualizar foto</h4>
-										</b-col>
-										<b-col class="mt-3">
-											<StorePhoto @doEmitFile="doSetFile" />
-										</b-col>
-										<b-col class="mt-3">
-											<b-button variant="primary" type="submit">
-												<font-awesome-icon icon="camera" class="mr-1" />
-												Atualizar foto
-											</b-button>
-										</b-col>
-									</form>
-								</b-col>
-							</b-row>
 						</form>
 					</b-col>
-					<b-col lg="6" class="mt-lg-0 mt-3">
-						<b-row>
+					<b-col lg="6">
+						<form
+							@submit.prevent="doUpdateUserPhoto"
+							enctype="multipart/form-data"
+						>
 							<b-col>
-								<h4 class="display-6 mb-3">Informações úteis</h4>
+								<h4 class="display-6">Atualizar foto</h4>
 							</b-col>
-						</b-row>
-						<b-jumbotron bg-variant="white" class="p-3">
-							<b-badge variant="secondary" class="p-2">Hello</b-badge>
-						</b-jumbotron>
+							<b-col class="mt-3">
+								<b-form-file
+									v-model="photo"
+									placeholder="Arraste ou insira sua foto aqui"
+									drop-placeholder="Arraste e solte sua foto aqui"
+								/>
+							</b-col>
+							<b-col class="mt-3">
+								<b-button variant="primary" type="submit">
+									<font-awesome-icon icon="camera" class="mr-1" />
+									Atualizar foto
+								</b-button>
+							</b-col>
+						</form>
 					</b-col>
 				</b-card-body>
 			</b-card>
@@ -115,14 +106,12 @@
 
 <script>
 import Navbar from '@/components/layout/Navbar'
-import StorePhoto from '@/components/utils/StorePhoto'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'Settings',
 	components: {
 		Navbar,
-		StorePhoto,
 	},
 	data: () => ({
 		form: {
@@ -144,9 +133,6 @@ export default {
 				password: this.form.password,
 				confirmPassword: this.form.confirmPassword,
 			})
-		},
-		doSetFile(file) {
-			this.photo = file
 		},
 		async doUpdateUserPhoto() {
 			const data = new FormData()
