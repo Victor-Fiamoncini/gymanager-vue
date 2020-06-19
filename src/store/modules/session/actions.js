@@ -56,10 +56,18 @@ export async function actionUpdateUser({ commit, getters }, payload) {
 }
 
 export async function actionUpdateUserPhoto({ commit, getters }, payload) {
-	const { id } = getters.user
+	if (payload !== null && payload.size > 3000000) {
+		notify(commit, 'danger', 'A imagem anexada é muito grande (máximo 3mb)')
+		return false
+	}
 
 	try {
-		await api.put(`/users/${id}/photo`, payload)
+		const { id } = getters.user
+
+		const data = new FormData()
+		data.append('photo', payload)
+
+		await api.put(`/users/${id}/photo`, data)
 
 		notify(commit, 'success', 'Foto atualizada com sucesso')
 	} catch (err) {

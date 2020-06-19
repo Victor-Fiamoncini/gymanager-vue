@@ -86,6 +86,7 @@
 							<b-col class="mt-3">
 								<b-form-file
 									v-model="photo"
+									accept=".jpg, .png"
 									placeholder="Arraste ou insira sua foto aqui"
 									drop-placeholder="Arraste e solte sua foto aqui"
 								/>
@@ -135,10 +136,7 @@ export default {
 			})
 		},
 		async doUpdateUserPhoto() {
-			const data = new FormData()
-			data.append('photo', this.photo)
-
-			await this.actionUpdateUserPhoto(data)
+			await this.actionUpdateUserPhoto(this.photo)
 		},
 	},
 }

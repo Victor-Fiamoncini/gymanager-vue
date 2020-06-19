@@ -7,7 +7,7 @@
 					<b-row>
 						<b-col>
 							<b-jumbotron class="p-0 text-center">
-								<b-avatar class="mb-3" :src="user.photo_url" size="160px" />
+								<b-avatar class="mb-3" size="180px" :src="user.photo_url" />
 								<h1>Seja bem-vindo {{ user.name }}</h1>
 							</b-jumbotron>
 						</b-col>

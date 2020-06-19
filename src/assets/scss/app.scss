@@ -56,3 +56,9 @@ input {
 	color: $secondary;
 	text-decoration: none;
 }
+
+.b-avatar-img {
+	img {
+		object-fit: cover;
+	}
+}

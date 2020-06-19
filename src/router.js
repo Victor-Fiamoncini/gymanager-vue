@@ -62,6 +62,15 @@ const router = new VueRouter({
 				requiresAuth: true,
 			},
 		},
+		{
+			path: '/matriculas',
+			name: 'Registration',
+			component: views.Registration,
+			meta: {
+				title: 'Matrículas',
+				requiresAuth: true,
+			},
+		},
 	],
 })
 
