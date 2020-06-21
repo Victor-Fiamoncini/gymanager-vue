@@ -27,6 +27,24 @@ const router = new VueRouter({
 			},
 		},
 		{
+			path: '/esqueceu-a-senha',
+			name: 'ForgotPassword',
+			component: views.ForgotPassword,
+			meta: {
+				title: 'Esqueceu a Senha',
+				requiresAuth: false,
+			},
+		},
+		{
+			path: '/recuperar-a-senha',
+			name: 'ResetPassword',
+			component: views.ResetPassword,
+			meta: {
+				title: 'Recuperar a Senha',
+				requiresAuth: false,
+			},
+		},
+		{
 			path: '/home',
 			name: 'Home',
 			component: views.Home,

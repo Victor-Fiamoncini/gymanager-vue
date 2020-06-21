@@ -35,18 +35,24 @@ export async function actionLogon({ commit, dispatch }, payload) {
 	} catch (err) {
 		dispatch('actionUnsetSession')
 		commit(SessionTypes.SET_ERRORS, err.response.data)
-		notify(commit, 'danger', err.response.data.details[0].context.label)
+
+		notify(commit, 'danger', 'Credenciais inválidas')
 	}
 	commit(SessionTypes.REMOVE_LOADING)
 }
 
-export async function actionUpdateUser({ commit, getters }, payload) {
+export async function actionUpdateUser({ commit }, payload) {
 	commit(SessionTypes.SET_LOADING)
-	const { id } = getters.user
-	const { name, email, password, confirmPassword } = payload
+	const { name, email, currentPassword, password, confirmPassword } = payload
 
 	try {
-		await api.put(`/users/${id}`, { name, email, password, confirmPassword })
+		await api.put('/users', {
+			name,
+			email,
+			currentPassword,
+			password,
+			confirmPassword,
+		})
 
 		notify(commit, 'success', 'Seus dados foram atualizados com sucesso')
 	} catch (err) {
@@ -55,24 +61,49 @@ export async function actionUpdateUser({ commit, getters }, payload) {
 	commit(SessionTypes.REMOVE_LOADING)
 }
 
-export async function actionUpdateUserPhoto({ commit, getters }, payload) {
+export async function actionUpdateUserPhoto({ commit }, payload) {
 	if (payload !== null && payload.size > 3000000) {
 		notify(commit, 'danger', 'A imagem anexada é muito grande (máximo 3mb)')
 		return false
 	}
 
 	try {
-		const { id } = getters.user
-
 		const data = new FormData()
 		data.append('photo', payload)
 
-		await api.put(`/users/${id}/photo`, data)
+		await api.put('/users/photo', data)
 
 		notify(commit, 'success', 'Foto atualizada com sucesso')
 	} catch (err) {
 		notify(commit, 'danger', err.response.data.details[0].context.label)
 	}
+}
+
+export async function actionSendResetToken({ commit }, payload) {
+	commit(SessionTypes.SET_LOADING)
+	try {
+		const response = await api.post('/forgot', payload)
+
+		notify(commit, 'success', response.data.message)
+	} catch (err) {
+		commit(SessionTypes.REMOVE_LOADING)
+		notify(commit, 'danger', err.response.data.details[0].context.label)
+	}
+	commit(SessionTypes.REMOVE_LOADING)
+}
+
+export async function actionResetPassword({ commit }, payload) {
+	commit(SessionTypes.SET_LOADING)
+	try {
+		const response = await api.put('/reset', payload)
+
+		notify(commit, 'success', response.data.message)
+		router.push({ name: 'Logon' })
+	} catch (err) {
+		commit(SessionTypes.REMOVE_LOADING)
+		notify(commit, 'danger', err.response.data.details[0].context.label)
+	}
+	commit(SessionTypes.REMOVE_LOADING)
 }
 
 export function actionCheckToken({ dispatch }) {

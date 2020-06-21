@@ -1,7 +1,7 @@
 <template>
-	<div id="page-logon">
+	<div id="page-logon" class="guest-page">
 		<form @submit.prevent="doLogon">
-			<b-card class="shadow" bg-variant="light">
+			<b-card class="shadow border border-secondary" bg-variant="light">
 				<h1 class="brand-title">
 					<img
 						src="@/assets/images/logo.png"
@@ -39,9 +39,18 @@
 							Entrar
 						</template>
 					</b-button>
-					<router-link to="/cadastro" class="guest-link">
-						Ainda não possui uma conta? Cadastre-se aqui
-					</router-link>
+					<b-row>
+						<b-col lg="6">
+							<router-link to="/esqueceu-a-senha" class="guest-link">
+								Recuperar senha
+							</router-link>
+						</b-col>
+						<b-col lg="6" class="text-lg-right">
+							<router-link to="/cadastro" class="guest-link">
+								Cadastre-se aqui
+							</router-link>
+						</b-col>
+					</b-row>
 				</b-card-body>
 			</b-card>
 		</form>

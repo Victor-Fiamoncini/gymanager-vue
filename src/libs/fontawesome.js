@@ -18,6 +18,7 @@ import {
 	faCogs,
 	faCamera,
 	faCloudUploadAlt,
+	faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -36,7 +37,8 @@ library.add(
 	faEdit,
 	faCogs,
 	faCamera,
-	faCloudUploadAlt
+	faCloudUploadAlt,
+	faEnvelope
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

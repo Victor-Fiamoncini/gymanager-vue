@@ -1,7 +1,7 @@
 <template>
-	<div id="page-register">
+	<div id="page-register" class="guest-page">
 		<form @submit.prevent="doRegister">
-			<b-card class="shadow" bg-variant="light">
+			<b-card class="shadow border border-secondary" bg-variant="light">
 				<h1 class="brand-title">
 					<img
 						src="@/assets/images/logo.png"
@@ -63,9 +63,13 @@
 							Cadastrar
 						</template>
 					</b-button>
-					<router-link to="/" class="guest-link">
-						Já possui conta? Faça seu logon aqui
-					</router-link>
+					<b-row>
+						<b-col>
+							<router-link to="/" class="guest-link">
+								Faça seu logon aqui
+							</router-link>
+						</b-col>
+					</b-row>
 				</b-card-body>
 			</b-card>
 		</form>

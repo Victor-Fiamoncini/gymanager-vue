@@ -11,30 +11,33 @@
 									<h4 class="display-6 mb-3">Atualizar login</h4>
 								</b-col>
 							</b-row>
-							<b-row>
-								<b-col lg="6">
-									<b-form-group>
-										<b-form-input
-											type="text"
-											trim
-											required
-											placeholder="Nome"
-											v-model="user.name"
-										/>
-									</b-form-group>
-								</b-col>
-								<b-col lg="6">
-									<b-form-group>
-										<b-form-input
-											type="email"
-											trim
-											required
-											placeholder="E-mail"
-											v-model="user.email"
-										/>
-									</b-form-group>
-								</b-col>
-							</b-row>
+							<b-form-group>
+								<b-form-input
+									type="text"
+									trim
+									required
+									placeholder="Nome"
+									v-model="user.name"
+								/>
+							</b-form-group>
+							<b-form-group>
+								<b-form-input
+									type="email"
+									trim
+									required
+									placeholder="E-mail"
+									v-model="user.email"
+								/>
+							</b-form-group>
+							<b-form-group>
+								<b-form-input
+									type="password"
+									trim
+									required
+									placeholder="Senha atual"
+									v-model="form.currentPassword"
+								/>
+							</b-form-group>
 							<b-row>
 								<b-col lg="6">
 									<b-form-group>
@@ -116,6 +119,7 @@ export default {
 	},
 	data: () => ({
 		form: {
+			currentPassword: null,
 			password: null,
 			confirmPassword: null,
 		},
@@ -131,12 +135,14 @@ export default {
 			await this.actionUpdateUser({
 				name: this.user.name,
 				email: this.user.email,
+				currentPassword: this.form.currentPassword,
 				password: this.form.password,
 				confirmPassword: this.form.confirmPassword,
 			})
 		},
 		async doUpdateUserPhoto() {
 			await this.actionUpdateUserPhoto(this.photo)
+			this.photo = ''
 		},
 	},
 }
