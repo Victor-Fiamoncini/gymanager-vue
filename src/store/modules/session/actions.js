@@ -18,7 +18,7 @@ export async function actionRegister({ commit, dispatch }, payload) {
 		)
 	} catch (err) {
 		dispatch('actionUnsetSession')
-		commit(SessionTypes.SET_ERRORS, err.response.data)
+		notify(commit, 'danger', err.response.data.details[0].context.label)
 	}
 	commit(SessionTypes.REMOVE_LOADING)
 }
@@ -34,8 +34,6 @@ export async function actionLogon({ commit, dispatch }, payload) {
 		router.push({ name: 'Home' })
 	} catch (err) {
 		dispatch('actionUnsetSession')
-		commit(SessionTypes.SET_ERRORS, err.response.data)
-
 		notify(commit, 'danger', 'Credenciais inválidas')
 	}
 	commit(SessionTypes.REMOVE_LOADING)
@@ -137,5 +135,4 @@ export function actionUnsetSession({ commit }) {
 	commit(SessionTypes.REMOVE_TOKEN)
 	commit(SessionTypes.REMOVE_USER)
 	commit(SessionTypes.REMOVE_LOADING)
-	commit(SessionTypes.REMOVE_ERRORS)
 }

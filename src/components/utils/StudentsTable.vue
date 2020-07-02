@@ -60,7 +60,7 @@
 		</b-table>
 		<b-pagination
 			v-if="totalRows > perPage && !filter"
-			class="bg-light p-3"
+			class="bg-light shadow p-3"
 			align="center"
 			v-model="currentPage"
 			prev-text="Anterior"
@@ -92,7 +92,7 @@ export default {
 	},
 	data: () => ({
 		currentPage: 1,
-		perPage: 10,
+		perPage: 5,
 		fields: [
 			{
 				key: 'name',

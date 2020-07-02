@@ -81,7 +81,9 @@ export async function actionDeletePlan({ commit }, payload) {
 }
 
 export function actionSetPlan({ commit }, payload) {
-	commit(PlanTypes.SET_PLAN, payload)
+	const plan = { ...payload }
+
+	commit(PlanTypes.SET_PLAN, plan)
 }
 
 export function actionUnsetPlan({ commit }) {

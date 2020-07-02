@@ -36,7 +36,7 @@
 				</b-form-group>
 				<b-form-group
 					class="col-xl-4 col-lg-12"
-					label="Peso"
+					label="Peso (kg)"
 					label-for="weight"
 				>
 					<b-form-input
@@ -49,7 +49,7 @@
 				</b-form-group>
 				<b-form-group
 					class="col-xl-4 col-lg-12"
-					label="Altura"
+					label="Altura (m)"
 					label-for="height"
 				>
 					<b-form-input
@@ -113,17 +113,17 @@ export default {
 		...mapActions('student', ['actionStoreStudent']),
 
 		doCloseModal() {
+			this.form.name = null
+			this.form.email = null
+			this.form.age = null
+			this.form.weight = null
+			this.form.height = null
+
 			this.show = false
 		},
 		async doStoreStudent() {
 			if (await this.actionStoreStudent(this.form)) {
 				this.doCloseModal()
-
-				this.form.name = null
-				this.form.email = null
-				this.form.age = null
-				this.form.weight = null
-				this.form.height = null
 			}
 		},
 	},

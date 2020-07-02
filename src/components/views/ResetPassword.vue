@@ -54,14 +54,18 @@
 							Cadastrar nova senha
 						</template>
 					</b-button>
-					<div class="d-flex justify-content-between">
-						<router-link to="/" class="guest-link">
-							Faça seu logon aqui
-						</router-link>
-						<router-link to="/cadastro" class="guest-link">
-							Cadastre-se aqui
-						</router-link>
-					</div>
+					<b-row>
+						<b-col lg="6">
+							<router-link to="/" class="guest-link">
+								Faça seu logon aqui
+							</router-link>
+						</b-col>
+						<b-col lg="6" class="text-lg-right">
+							<router-link to="/cadastro" class="guest-link">
+								Cadastre-se aqui
+							</router-link>
+						</b-col>
+					</b-row>
 				</b-card-body>
 			</b-card>
 		</form>

@@ -99,15 +99,15 @@ export default {
 		...mapActions('plan', ['actionStorePlan']),
 
 		doCloseModal() {
+			this.form.title = null
+			this.form.price = null
+			this.form.duration = null
+
 			this.show = false
 		},
 		async doStorePlan() {
 			if (await this.actionStorePlan(this.form)) {
 				this.doCloseModal()
-
-				this.form.title = null
-				this.form.price = null
-				this.form.duration = null
 			}
 		},
 	},

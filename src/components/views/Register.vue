@@ -17,13 +17,8 @@
 							trim
 							required
 							placeholder="Nome"
-							aria-describedby="input-live-help name-feedback"
-							v-model="form.name.text"
-							:state="form.name.valid"
+							v-model="form.name"
 						/>
-						<b-form-invalid-feedback id="name-feedback">
-							{{ doGetInputValidationMessage('name') }}
-						</b-form-invalid-feedback>
 					</b-form-group>
 					<b-form-group>
 						<b-form-input
@@ -31,13 +26,8 @@
 							trim
 							required
 							placeholder="E-mail"
-							aria-describedby="input-live-help email-feedback"
-							v-model="form.email.text"
-							:state="form.email.valid"
+							v-model="form.email"
 						/>
-						<b-form-invalid-feedback id="email-feedback">
-							{{ doGetInputValidationMessage('email') }}
-						</b-form-invalid-feedback>
 					</b-form-group>
 					<b-form-group>
 						<b-form-input
@@ -45,13 +35,8 @@
 							trim
 							required
 							placeholder="Senha"
-							aria-describedby="input-live-help password-feedback"
-							v-model="form.password.text"
-							:state="form.password.valid"
+							v-model="form.password"
 						/>
-						<b-form-invalid-feedback id="password-feedback">
-							{{ doGetInputValidationMessage('password') }}
-						</b-form-invalid-feedback>
 					</b-form-group>
 					<b-button block variant="primary" type="submit" :disabled="loading">
 						<template v-if="loading">
@@ -83,79 +68,20 @@ export default {
 	name: 'Register',
 	data: () => ({
 		form: {
-			name: {
-				text: '',
-				valid: null,
-			},
-			email: {
-				text: '',
-				valid: null,
-			},
-			password: {
-				text: '',
-				valid: null,
-			},
+			name: null,
+			email: null,
+			password: null,
 		},
 	}),
 	computed: {
-		...mapGetters('session', ['errors', 'loading']),
+		...mapGetters('session', ['loading']),
 	},
 	methods: {
 		...mapActions('session', ['actionRegister']),
 
-		doFilterError(field) {
-			return this.errors.filter(err => err.details[0].context.key === field)
-		},
-		doInputValidation(field) {
-			if (this.doFilterError(field).length > 0) {
-				this.form[field].valid = false
-			} else {
-				this.form[field].valid = null
-			}
-		},
-		doGetInputValidationMessage(field) {
-			if (this.errors) {
-				return this.errors.map(({ details }) => {
-					return details[0].context.key === field && details[0].context.label
-				})[0]
-			}
-		},
 		async doRegister() {
-			await this.actionRegister({
-				name: this.form.name.text,
-				email: this.form.email.text,
-				password: this.form.password.text,
-			})
-
-			Object.keys(this.form).forEach(field => this.doInputValidation(field))
+			await this.actionRegister(this.form)
 		},
 	},
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/scss/app.scss';
-
-#page-register {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	form {
-		width: 100%;
-		max-width: 520px;
-		.brand-title {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			img {
-				width: 80px;
-				margin: 0 0 12px;
-			}
-		}
-		button {
-			margin: 0 0 20px;
-		}
-	}
-}
-</style>

@@ -85,7 +85,9 @@ export async function actionDeleteStudent({ commit }, payload) {
 }
 
 export function actionSetStudent({ commit }, payload) {
-	commit(StudentTypes.SET_STUDENT, payload)
+	const student = { ...payload }
+
+	commit(StudentTypes.SET_STUDENT, student)
 }
 
 export function actionUnsetStudent({ commit }) {

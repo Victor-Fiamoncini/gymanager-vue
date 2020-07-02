@@ -10,9 +10,6 @@ export default {
 	[SessionTypes.SET_LOADING]: state => {
 		state.loading = true
 	},
-	[SessionTypes.SET_ERRORS]: (state, payload) => {
-		state.errors = [payload]
-	},
 	[SessionTypes.REMOVE_TOKEN]: state => {
 		state.token = ''
 	},
@@ -21,8 +18,5 @@ export default {
 	},
 	[SessionTypes.REMOVE_LOADING]: state => {
 		state.loading = false
-	},
-	[SessionTypes.REMOVE_ERRORS]: state => {
-		state.errors = []
 	},
 }
