@@ -1,6 +1,6 @@
-# Gymanager Vue 💪
+# Gymanager Web 💪
 
-Client web app for Gymanager REST API 💪, built with 💚 VueJS, Vuex, Bootstrap...
+Client web app for Gymanager REST API, built with VueJS, Vuex, Bootstrap...
 
 ## How to install and run 🛠
 Using yarn (root folder):
